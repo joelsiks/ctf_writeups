@@ -5,7 +5,7 @@ Only information given is an ip and a port.
 
 <hr>
 
-Netcating the ip and the port we are prompted with:
+Using `netcat` to connect to the ip and the port, we are prompted with:
 ```
 you will be given a number of problems give me the least number of moves to solve them
 level 1: tower of hanoi
@@ -13,7 +13,7 @@ level 1: tower of hanoi
 >
 ```
 
-Since it seems trivial to parse the numbers as "towers" in a hanoi puzzle, we instead try to calculate the number of moves to solve a hanoi puzzle with the amount of towers that is equal to the length of the array we are given.
+Since we are prompted with giving the number of moves to solve the problem, we calculate the number of moves to solve a hanoi puzzle with the amount of towers that is equal to the length of the array we are given.
 
 The minimal number of moves required to solve a Tower of Hanoi puzzle is 2^n − 1, where n is the number of disks. 
 
@@ -24,7 +24,7 @@ level 2 : merge sort, give me the count of inversions
 >
 ```
 
-This prompt was more straight forward. Now we only need to calculate the count of inversions needed to sort the given array with merge sort.
+Now we need to calculate the count of inversions needed to sort the given array with merge sort.
 
 When enough prompts have been solved, the flag is printed:
 

